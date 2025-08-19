@@ -1,0 +1,11 @@
+{
+    'name': 'buyer_po_customization',
+    'version': '1.0',
+    'depends': ['sale_management'],
+    'data': [
+        'security/ir.model.access.csv',
+        'views/sale_order_views.xml',
+    ],
+    'installable': True,
+    'application': False,
+}
