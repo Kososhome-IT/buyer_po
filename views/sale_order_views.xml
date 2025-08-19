@@ -1,4 +1,5 @@
 <odoo>
+<data>
   <record id="view_sale_order_form_custom" model="ir.ui.view">
     <field name="name">sale.order.form.custom</field>
     <field name="model">sale.order</field>
@@ -11,4 +12,44 @@
       </xpath>
     </field>
   </record>
+  <record id="action_partner_vendors" model="ir.actions.act_window">
+        <field name="name">Vendors</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('supplier_rank','>',0)]</field>
+    </record>
+<record id="action_sale_order_line_all" model="ir.actions.act_window">
+    <field name="name">Sale Order Lines</field>
+    <field name="res_model">sale.order.line</field>
+    <field name="view_mode">tree,form</field>
+</record>
+    <record id="action_sales_vendor_locations" model="ir.actions.act_window">
+      <field name="name">Vendor Locations</field>
+      <field name="res_model">res.partner</field>
+      <field name="view_mode">tree,form,kanban</field>
+      <field name="domain">[('supplier_rank','>',0)]</field>
+    </record>
+    <!-- Menu item under Sales / Orders -->
+       
+       <record id="sale.sale_menu_root" model="ir.ui.menu">
+            <field name="name">Buyer PO</field>
+        </record>
+        <record id="sale.menu_sale_quotations" model="ir.ui.menu">
+            <field name="name">Proforma Invoice</field>
+        </record>
+       <record id="sale.menu_sale_order" model="ir.ui.menu">
+            <field name="name">Buyer PO</field>
+        </record>
+    <menuitem id="menu_sales_vendors_custom"
+              name="Vendors"
+              parent="sale.sale_order_menu"
+              action="action_partner_vendors"
+              sequence="45"/>
+              <menuitem id="menu_sale_order_line_custom" name="Sale Order Lines" parent="sale.sale_order_menu" action="action_sale_order_line_all" sequence="99"/>
+               <menuitem id="menu_sales_vendor_locations"
+              name="Vendor Locations"
+              parent="sale.sale_menu_root" 
+              action="action_sales_vendor_locations"
+              sequence="80"/>
+              </data>
 </odoo>
