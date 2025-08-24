@@ -8,6 +8,12 @@ class SaleOrderLine(models.Model):
         store=False,
         readonly=True
     )
+    buyer_style_no = fields.Char(
+        string="Buyer Style No",
+        related="product_id.buyer_style_no",
+        store=True,
+        readonly=True
+    )
     head_wood = fields.Boolean(string="Wood")
     head_upholstery = fields.Boolean(string="Upholstery")
     head_metal = fields.Boolean(string="Metal")
@@ -33,6 +39,22 @@ class SaleOrderLine(models.Model):
     head_leather = fields.Boolean(string="Leather/Fabric")
     head_bone_horn_mop = fields.Boolean(string="Bone/Horn/MOP")
     head_cane_rattan = fields.Boolean(string="Cane/Rattan")
+
+    vendor_id = fields.Many2one(
+        "res.partner",
+        string="Vendor",
+        compute="_compute_vendor_id",
+        store=True,
+        readonly=False,  # keep False if you want to allow editing
+    )
+
+    @api.depends('product_id')
+    def _compute_vendor_id(self):
+        for line in self:
+            if line.product_id and hasattr(line.product_id, 'vendor_id'):
+                line.vendor_id = line.product_id.vendor_id.id
+            else:
+                line.vendor_id = False
 
 
     @api.onchange('product_id')

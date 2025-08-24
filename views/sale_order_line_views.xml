@@ -9,6 +9,8 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="before">
                 <field name="product_image" widget="image" options="{'size': [32, 32]}"/>
+                <field name="buyer_style_no" />
+                <field name="vendor_id"/>
             </xpath>
         </field>
     </record>
