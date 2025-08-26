@@ -45,7 +45,7 @@ class SaleOrderLine(models.Model):
         string="Vendor",
         compute="_compute_vendor_id",
         store=True,
-        readonly=False,  # keep False if you want to allow editing
+        readonly=True,  # keep False if you want to allow editing
     )
 
     @api.depends('product_id')
