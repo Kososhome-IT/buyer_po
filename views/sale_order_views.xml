@@ -5,15 +5,15 @@
     <field name="model">sale.order</field>
     <field name="inherit_id" ref="sale.view_order_form"/>
     <field name="arch" type="xml">
-  <xpath expr="//div[@name='button_box']" position="inside">
+    <xpath expr="//div[@name='button_box']" position="inside">
     <!-- Hidden technical field -->
-    <field name="inspection_count" invisible="1"/>
+      <field name="inspection_count" invisible="1"/>
 
-    <button type="object" name="action_view_inspections"
-            class="oe_stat_button" icon="fa-ticket">
-        <field name="inspection_count" widget="statinfo"/>
-    </button>
-</xpath>
+      <button type="object" name="action_view_inspections"
+              class="oe_stat_button" icon="fa-ticket">
+          <field name="inspection_count" widget="statinfo"/>
+      </button>
+    </xpath>
 
       <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="cus_po_issue_date"/>

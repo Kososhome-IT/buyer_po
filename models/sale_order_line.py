@@ -48,6 +48,15 @@ class SaleOrderLine(models.Model):
         readonly=True,  # keep False if you want to allow editing
     )
 
+    @api.onchange('order_id')
+    def _onchange_vendor_product_domain(self):
+        for line in self:
+            vendor = line.order_id.vendor_id  # safe to access here
+            if vendor:
+                line.product_id = False  # reset product if vendor changes
+                return {'domain': {'product_id': [('vendor_id', '=', vendor.id)]}}
+            else:
+                return {'domain': {'product_id': []}}  # show all products if no vendor
     @api.depends('product_id')
     def _compute_vendor_id(self):
         for line in self:
