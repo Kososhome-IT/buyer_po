@@ -51,6 +51,12 @@
       <field name="view_mode">tree,form,kanban</field>
       <field name="domain">[('supplier_rank','>',0)]</field>
     </record>
+        <record id="action_library_country" model="ir.actions.act_window">
+        <field name="name">Library Country</field>
+        <field name="res_model">library.country</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+    </record>
     <!-- Menu item under Sales / Orders -->
        
        <record id="sale.sale_menu_root" model="ir.ui.menu">
@@ -71,7 +77,7 @@
                <menuitem id="menu_sales_vendor_locations"
               name="Vendor Locations"
               parent="sale.sale_menu_root" 
-              action="action_sales_vendor_locations"
+              action="action_library_country"
               sequence="80"/>
               </data>
 </odoo>
