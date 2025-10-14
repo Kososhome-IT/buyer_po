@@ -34,6 +34,17 @@
         </xpath>
     </field>
   </record>
+      <record id="sale_order_line_tree_inherit_custom" model="ir.ui.view">
+        <field name="name">sale.order.line.tree.inherit.custom</field>
+        <field name="model">sale.order.line</field>
+        <field name="inherit_id" ref="sale.view_order_line_tree"/> <!-- Replace with actual view ID -->
+          <field name="arch" type="xml">
+        <xpath expr="//tree" position="attributes">
+            <attribute name="create">true</attribute>
+        </xpath>
+    </field>
+        
+    </record>
   <record id="action_partner_vendors" model="ir.actions.act_window">
         <field name="name">Vendors</field>
         <field name="res_model">res.partner</field>
@@ -43,6 +54,7 @@
 <record id="action_sale_order_line_all" model="ir.actions.act_window">
     <field name="name">Sale Order Lines</field>
     <field name="res_model">sale.order.line</field>
+     <field name="context">{'import_enabled': True}</field>
     <field name="view_mode">tree,form</field>
 </record>
     <record id="action_sales_vendor_locations" model="ir.actions.act_window">
@@ -51,7 +63,7 @@
       <field name="view_mode">tree,form,kanban</field>
       <field name="domain">[('supplier_rank','>',0)]</field>
     </record>
-        <record id="action_library_country" model="ir.actions.act_window">
+    <record id="action_library_country" model="ir.actions.act_window">
         <field name="name">Library Country</field>
         <field name="res_model">library.country</field>
         <field name="view_mode">tree,form</field>
