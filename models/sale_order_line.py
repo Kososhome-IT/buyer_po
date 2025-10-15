@@ -61,10 +61,10 @@ class SaleOrderLine(models.Model):
     )
     container_no = fields.Char(string="Container No")
     stuffed_date = fields.Date(string="Stuffed Date")
-    vendor_Ex_Fact_date = fields.Date(string="Vendor Ex-Fact Date")
+    vendor_Ex_Fact_date = fields.Date(string="Vendor Ex-Fact Date" ,related='order_id.cus_ex_fact_date')
     shipped_date = fields.Date(string="Shipped Date")
-    cus_buyer_order_no = fields.Char(string="Buyer Order No")
-    vendor_product_code = fields.Char(string='Vendor Product Code', related='product_id.categ_id.name',store=True, tracking=True)
+    cus_buyer_order_no = fields.Char(string="Buyer Order No",related='order_id.cus_buyer_order_no')
+    vendor_product_code = fields.Char(string='Vendor Product Code', related='product_id.vendor_product_code',store=True, tracking=True)
     buyer_id = fields.Many2one(
         'res.partner',
         string="Customer",
@@ -76,42 +76,20 @@ class SaleOrderLine(models.Model):
     master_Qty = fields.Char(string="Master Qty")
     invoiced_Qty = fields.Char(string="Invoiced Quantity")
     discount_Qty = fields.Char(string="Discount (%)")
-    product_uom = fields.Selection([
-    ('pcs', 'PCS'),
-    ('dozen', 'Dozen')
-    ], string="Unit of Measure",related='product_id.product_uom', tracking=True)
+    # product_uom = fields.Selection([
+    # ('pcs', 'PCS'),
+    # ('dozen', 'Dozen')
+    # ], string="Unit of Measure",related='product_id.product_uom', tracking=True)
     unit_CBM = fields.Char(string="Unit CBM")
     cbf = fields.Float(string="Product CBF", related='product_id.cbf', store=True)
     cbm = fields.Float(string="CBM", related='product_id.cbm', store=True)
-    product_uom_qty = fields.Float(
-        string="Quantity",
-        digits='Product Unit of Measure', default=1.0,
-        store=True, readonly=False, required=True, precompute=True)
+   
     company_id = fields.Many2one(
         comodel_name="res.company",
         string="Company",
         default=lambda self: self.env.company,
         help="Company owning this product",
     )
-    price_unit = fields.Float(
-        string="Unit Price",
-        compute='_compute_price_unit',
-        digits='Product Price',
-        store=True, readonly=False, required=True, precompute=True)
-
-    price_subtotal = fields.Monetary(
-        string="Subtotal",
-        compute='_compute_amount',
-        store=True, precompute=True)
-    price_tax2 = fields.Float(
-        string="Total Tax",
-        compute='_compute_amount',
-        store=True, precompute=True)
-    price_total = fields.Monetary(
-        string="Total",
-        compute='_compute_amount',
-        store=True, precompute=True)
-
     # Pricing fields
     currency_id = fields.Many2one(
         'res.currency',
