@@ -60,9 +60,17 @@ class SaleOrderLine(models.Model):
         tracking=True,
     )
     container_no = fields.Char(string="Container No")
-    stuffed_date = fields.Date(string="Stuffed Date")
+    stuffed_date = fields.One2many(
+        'stuffed_date.date', 
+        'parent_id', 
+        string='Stuffed Dates'
+    )
+    shipped_date = fields.One2many(
+        'shipped_date.date', 
+        'shipped_date_id', 
+        string='Shipped Dates'
+    )
     vendor_Ex_Fact_date = fields.Date(string="Vendor Ex-Fact Date" ,related='order_id.cus_ex_fact_date')
-    shipped_date = fields.Date(string="Shipped Date")
     cus_buyer_order_no = fields.Char(string="Buyer Order No",related='order_id.cus_buyer_order_no')
     vendor_product_code = fields.Char(string='Vendor Product Code', related='product_id.vendor_product_code',store=True, tracking=True)
     buyer_id = fields.Many2one(
@@ -167,4 +175,8 @@ class SaleOrderLine(models.Model):
             self.head_leather = self.product_id.head_leather
             self.head_bone_horn_mop = self.product_id.head_bone_horn_mop
             self.head_cane_rattan = self.product_id.head_cane_rattan
+
+     
+
+          
 
