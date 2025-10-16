@@ -7,6 +7,8 @@
         'views/sale_order_line_views.xml',
         'views/res_partner_views.xml',
         'views/sale_order_views.xml',
+        'views/shipped_date.xml',
+        'views/stuffed_dates.xml',
     ],
     'installable': True,
     'application': False,
