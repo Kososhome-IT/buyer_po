@@ -21,7 +21,7 @@
                     <field name="cus_proforma_number"/>
                     <field name="cus_buyer_order_no"/>
                     <field name="country_origin"/>
-                    <field name="gst_treatment"/>
+                    <field name="l10n_in_gst_treatment"/>
       </xpath>
        <!-- Rename ALL labels for date_order -->
         <xpath expr="//label[@for='date_order']" position="attributes">
