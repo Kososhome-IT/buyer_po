@@ -66,12 +66,9 @@
              <group string="CBM"  col="2">
                 <group >
                     <field name="unit_CBM" />
-                    
                 </group>
                 <group >
                 <field name="cbm" />
-                
-
                 </group>
              </group>
 
@@ -123,7 +120,7 @@
                     <field name="final_bal_quantity" optional="hide"/>
                     <field name="OCA_bal_quantity" optional="hide"/>
                     <field name="unit_CBM" optional="hide"/>
-                    <field name="cbf" optional="hide"/>
+                    <field name="cbm" optional="hide"/>
                     <field name="invoiced_Qty" optional="hide"/>
                     <field name="shipped_Qty" optional="hide"/>
             </xpath>

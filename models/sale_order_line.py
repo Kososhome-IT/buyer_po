@@ -59,26 +59,18 @@ class SaleOrderLine(models.Model):
         readonly=True,
         tracking=True,
     )
-    container_no = fields.Char(string="Container No")
-    stuffed_date = fields.One2many(
-        'stuffed_date.date', 
-        'parent_id', 
-        string='Stuffed Dates'
-    )
-    shipped_date = fields.One2many(
-        'shipped_date.date', 
-        'shipped_date_id', 
-        string='Shipped Dates'
-    )
-    vendor_Ex_Fact_date = fields.Date(string="Vendor Ex-Fact Date" ,related='order_id.cus_ex_fact_date')
-    cus_buyer_order_no = fields.Char(string="Buyer Order No",related='order_id.cus_buyer_order_no')
-    vendor_product_code = fields.Char(string='Vendor Product Code', related='product_id.vendor_product_code',store=True, tracking=True)
     buyer_id = fields.Many2one(
         'res.partner',
         string="Customer",
         domain=[('customer_rank', '>', 0)],
         tracking=True,
     )
+    container_no = fields.Char(string="Container No")
+    stuffed_date = fields.Char(string="Stuffed Dates")
+    shipped_date = fields.Char(string="Shipped Dates")
+    vendor_Ex_Fact_date = fields.Date(string="Vendor Ex-Fact Date" ,related='order_id.cus_ex_fact_date')
+    cus_buyer_order_no = fields.Char(string="Buyer Order No",related='order_id.cus_buyer_order_no')
+    vendor_product_code = fields.Char(string='Vendor Product Code', related='product_id.vendor_product_code',store=True, tracking=True)
     inner_Qty = fields.Char(string="Inner Qty")
     shipped_Qty = fields.Char(string="Shipped Qty")
     master_Qty = fields.Char(string="Master Qty")
@@ -88,9 +80,8 @@ class SaleOrderLine(models.Model):
     # ('pcs', 'PCS'),
     # ('dozen', 'Dozen')
     # ], string="Unit of Measure",related='product_id.product_uom', tracking=True)
-    unit_CBM = fields.Char(string="Unit CBM")
-    cbf = fields.Float(string="Product CBF", related='product_id.cbf', store=True)
-    cbm = fields.Float(string="CBM", related='product_id.cbm', store=True)
+    unit_CBM = fields.Float(string="Unit CBM")
+    total_cbm = fields.Float(string="Total CBM", help="total cbm is unit cbm multiply with total quantity",store=True)
    
     company_id = fields.Many2one(
         comodel_name="res.company",
