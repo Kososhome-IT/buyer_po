@@ -119,7 +119,6 @@ class SaleOrderLine(models.Model):
     cus_ex_fact_date = fields.Date(string="Vendor Ex-Fact Date",related='order_id.cus_ex_fact_date')
     cus_buyer_order_no = fields.Char(string="Buyer Order No",related='order_id.cus_buyer_order_no')
     # conatainer
-    stuffed_date = fields.Date(string="Stuffed Date")
     @api.onchange('order_id')
     def _onchange_vendor_product_domain(self):
         for line in self:
