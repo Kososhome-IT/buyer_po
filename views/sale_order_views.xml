@@ -7,12 +7,12 @@
     <field name="arch" type="xml">
     <xpath expr="//div[@name='button_box']" position="inside">
     <!-- Hidden technical field -->
-      <field name="inspection_count" invisible="1"/>
+      <!-- <field name="inspection_count" invisible="1"/>
 
       <button type="object" name="action_view_inspections"
               class="oe_stat_button" icon="fa-ticket">
           <field name="inspection_count" widget="statinfo"/>
-      </button>
+      </button> -->
     </xpath>
       <xpath expr="//field[@name='tag_ids']" position="after">
 
