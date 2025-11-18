@@ -17,6 +17,10 @@ class SaleOrder(models.Model):
     readonly=True,
     string='GST Treatment'
     )
+    inspection_count = fields.Integer(
+        string="Inspections",
+        store=True
+    )
     date_order = fields.Datetime(
         string='Order Date',     
         readonly=False,            
