@@ -33,4 +33,7 @@ class SaleOrder(models.Model):
         string='Vendor',
         domain=[('supplier_rank', '>', 0)]
     )
+
+    def action_view_inspections(self):
+        return
    
