@@ -38,6 +38,48 @@
         </xpath>
     </field>
   </record>
+  <!-- Inherit Sales Order / Quotation search view to add Vendor search -->
+    <record id="view_sales_order_filter_inherit_vendor" model="ir.ui.view">
+        <field name="name">sale.order.search.inherit.vendor</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+
+            <!-- Add vendor in the search bar -->
+            <xpath expr="//search" position="inside">
+                <!-- Free-text search by Vendor name -->
+                <field name="vendor_id"
+                       string="Vendor"
+                       filter_domain="[('vendor_id.name', 'ilike', self)]"/>
+
+                <!-- Optional: Group by Vendor -->
+                <filter name="group_by_vendor"
+                        string="Vendor"
+                        context="{'group_by': 'vendor_id'}"/>
+                <!-- Add cus_buyer_order_no in the search bar -->        
+                <field name="cus_buyer_order_no"
+                       string="Buyer Order No"
+                       filter_domain="[('cus_buyer_order_no.name', 'ilike', self)]"/>   
+            </xpath>
+
+        </field>
+    </record>
+  <!-- Inherit the Sale Order tree view -->
+    <record id="view_order_tree_inherit_custom" model="ir.ui.view">
+        <field name="name">sale.order.tree.inherit.custom</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+
+            <!-- Insert after the existing "name" column -->
+            <xpath expr="//tree/field[@name='name']" position="after">
+                <field name="cus_buyer_order_no"/>
+                <field name="vendor_id"/>
+
+            </xpath>
+
+        </field>
+    </record>
       <record id="sale_order_line_tree_inherit_custom" model="ir.ui.view">
         <field name="name">sale.order.line.tree.inherit.custom</field>
         <field name="model">sale.order.line</field>
