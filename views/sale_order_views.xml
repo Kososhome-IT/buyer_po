@@ -38,6 +38,22 @@
         </xpath>
     </field>
   </record>
+  <!-- Inherit the Sale Order tree view -->
+    <record id="view_order_tree_inherit_custom" model="ir.ui.view">
+        <field name="name">sale.order.tree.inherit.custom</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+
+            <!-- Insert after the existing "name" column -->
+            <xpath expr="//tree/field[@name='name']" position="after">
+                <field name="cus_buyer_order_no"/>
+                <field name="vendor_id"/>
+
+            </xpath>
+
+        </field>
+    </record>
       <record id="sale_order_line_tree_inherit_custom" model="ir.ui.view">
         <field name="name">sale.order.line.tree.inherit.custom</field>
         <field name="model">sale.order.line</field>
