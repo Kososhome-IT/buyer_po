@@ -8,10 +8,7 @@ class SaleOrder(models.Model):
     cus_proforma_number = fields.Char(string="Proforma Number")
     cus_buyer_order_no = fields.Char(string="Buyer Order No")
     cus_po_upload_no = fields.Char(string="PO Upload No")
-    country_origin = fields.Many2one(
-        'res.country',
-        string='Country of Origin'
-    )
+    country_origin = fields.Many2one('library.country', string='Country of Origin')
     gst_treatment = fields.Char(
     related='partner_id.property_account_position_id.name',
     readonly=True,
