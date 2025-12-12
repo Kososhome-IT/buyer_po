@@ -119,15 +119,23 @@ class SaleOrderLine(models.Model):
     cus_ex_fact_date = fields.Date(string="Vendor Ex-Fact Date",related='order_id.cus_ex_fact_date')
     cus_buyer_order_no = fields.Char(string="Buyer Order No",related='order_id.cus_buyer_order_no')
     # conatainer
-    @api.onchange('order_id')
+    # @api.onchange('order_id')
+    # def _onchange_vendor_product_domain(self):
+    #     for line in self:
+    #         vendor = line.order_id.vendor_id  # safe to access here
+    #         if vendor:
+    #             line.product_id = False  # reset product if vendor changes
+    #             return {'domain': {'product_id': [('vendor_id', '=', vendor.id)]}}
+    #         else:
+    #             return {'domain': {'product_id': []}}  # show all products if no vendor
+
+    @api.onchange('order_id', 'order_id.vendor_id')
     def _onchange_vendor_product_domain(self):
-        for line in self:
-            vendor = line.order_id.vendor_id  # safe to access here
-            if vendor:
-                line.product_id = False  # reset product if vendor changes
-                return {'domain': {'product_id': [('vendor_id', '=', vendor.id)]}}
-            else:
-                return {'domain': {'product_id': []}}  # show all products if no vendor
+        vendor = self.order_id.vendor_id
+        if vendor:
+            return {'domain': {'product_id': [('vendor_id', '=', vendor.id)]}}
+        else:
+            return {'domain': {'product_id': []}}
     @api.depends('product_id')
     def _compute_vendor_id(self):
         for line in self:
