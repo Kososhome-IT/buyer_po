@@ -75,14 +75,11 @@ class SaleOrderLine(models.Model):
     shipped_Qty = fields.Char(string="Shipped Qty")
     master_Qty = fields.Char(string="Master Qty")
     invoiced_Qty = fields.Char(string="Invoiced Quantity")
-    discount_Qty = fields.Char(string="Discount (%)")
-    # product_uom = fields.Selection([
-    # ('pcs', 'PCS'),
-    # ('dozen', 'Dozen')
-    # ], string="Unit of Measure",related='product_id.product_uom', tracking=True)
+    discount_Qty = fields.Char(string="Discount (%)") 
+    cbm = fields.Float(string="CBM" ,related='product_id.cbm',store=True)
+    cbf = fields.Float(string="CBF" ,related='product_id.cbf',store=True)
     unit_CBM = fields.Float(string="Unit CBM")
     total_cbm = fields.Float(string="Total CBM", help="total cbm is unit cbm multiply with total quantity",store=True)
-   
     company_id = fields.Many2one(
         comodel_name="res.company",
         string="Company",
@@ -117,7 +114,7 @@ class SaleOrderLine(models.Model):
     # order quotation feilds
     cus_po_issue_date = fields.Date(string="PO Issue Date" ,related='order_id.cus_po_issue_date')
     cus_ex_fact_date = fields.Date(string="Vendor Ex-Fact Date",related='order_id.cus_ex_fact_date')
-    cus_buyer_order_no = fields.Char(string="Buyer Order No",related='order_id.cus_buyer_order_no')
+    
     # conatainer
     @api.onchange('order_id')
     def _onchange_vendor_product_domain(self):
