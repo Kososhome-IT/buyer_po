@@ -14,6 +14,16 @@
           <field name="inspection_count" widget="statinfo"/>
       </button> -->
     </xpath>
+    <xpath expr="//group[@name='sale_total']" position="before">
+    <group col='2'>
+        <group class=" oe_right" colspan="2" attrs="{'invisible': [('order_line', '=', False)]}">
+            <field name="total_qty" readonly="1"/>           
+            <field name="total_cbm" readonly="1"/>
+        </group>
+     </group>   
+    </xpath>
+
+
       <xpath expr="//field[@name='tag_ids']" position="after">
 
           <field name="cus_po_upload_no"/>
