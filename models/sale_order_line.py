@@ -76,7 +76,12 @@ class SaleOrderLine(models.Model):
     master_Qty = fields.Char(string="Master Qty")
     invoiced_Qty = fields.Char(string="Invoiced Quantity")
     discount_Qty = fields.Char(string="Discount (%)") 
-    cbm = fields.Float(string="CBM" ,related='product_id.cbm',store=True)
+    # cbm = fields.Float(string="CBM" ,related='product_id.cbm',store=True)
+    cbm = fields.Float(
+        string="CBM",
+        compute="_compute_cbm",
+        store=True
+    )
     cbf = fields.Float(string="CBF" ,related='product_id.cbf',store=True)
     unit_CBM = fields.Float(string="Unit CBM")
     total_cbm = fields.Float(string="Total CBM", help="total cbm is unit cbm multiply with total quantity",store=True)
@@ -116,6 +121,10 @@ class SaleOrderLine(models.Model):
     cus_ex_fact_date = fields.Date(string="Vendor Ex-Fact Date",related='order_id.cus_ex_fact_date')
     
     # conatainer
+    @api.depends('product_id', 'product_id.cbm', 'product_uom_qty')
+    def _compute_cbm(self):
+        for line in self:
+            line.cbm = (line.product_id.cbm or 0.0) * line.product_uom_qty
     @api.onchange('order_id')
     def _onchange_vendor_product_domain(self):
         for line in self:
